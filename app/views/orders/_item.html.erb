@@ -12,10 +12,10 @@
   </td>
   <td>
     <div>
-    <%= quantity %>
+      <%= quantity %>
     </div>
   </td>
   <td>
-    <%= humanized_money_with_symbol product.price * quantity %>
+    <%= humanized_money_with_symbol price / 100 %>
   </td>
 </tr>
