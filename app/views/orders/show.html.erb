@@ -31,6 +31,7 @@
       <tbody>
         <% puts @order.inspect %>
         <% @order.line_items.each do |item| %>
+          <% # passes the product, quantity and total price from the order %>
           <%= render 'item', product: item.product, quantity: item[:quantity].to_i, price: item[:total_price_cents].to_f %>
         <% end %>
       </tbody>
@@ -40,7 +41,7 @@
             TOTAL:
           </th>
           <th>
-            <% # The final amount for the order %>
+            <% # The final amount charged for the order %>
             <%= humanized_money_with_symbol @order.total_cents.to_f / 100.0 %>
           </th>
         </tr>
