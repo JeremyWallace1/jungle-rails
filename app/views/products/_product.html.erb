@@ -8,17 +8,12 @@
   <% end%>
     <div>
       <% if product.quantity == 0 %>
-        <button class="soldout" disabled>
-          Sold Out
+        <%= render "sold_out" %>
+        <button class="btn" disabled>
+          <%= fa_icon "shopping-cart", text: 'Add' %> 
         </button>
-          <button class="btn" disabled>
-            <%= fa_icon "shopping-cart", text: 'Add' %> 
-          </button>
       <% else %>
-          <%= button_to add_item_cart_path(product_id: product.id), class: 'btn' ,
-          method: :post do %>
-            <%= fa_icon "shopping-cart", text: 'Add' %> 
-          <% end %>
+        <%= render "add_to_cart_button", product: product %>
       <% end %>
     </div>
 </article>

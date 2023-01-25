@@ -14,13 +14,9 @@
       </div>
       <div class="price">   
         <% if @product.quantity == 0 %>
-          <button class="soldout" disabled>
-            Sold Out
-          </button>
+          <%= render "sold_out" %>
         <% else %>
-          <%= button_to add_item_cart_path(product_id: @product.id), class: 'btn' , method: :post do %>
-            <%= fa_icon "shopping-cart", text: 'Add' %>
-          <% end %>          
+          <%= render "add_to_cart_button", product: @product %>
         <% end %>
       </div>
     </div>
