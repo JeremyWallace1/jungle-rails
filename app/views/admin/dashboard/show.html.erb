@@ -1,7 +1,7 @@
 <h1>Admin Dashboard</h1>
-<p>
-  There are <%= @products.count %> products in the database.
-</p>
-<p>
-  There are <%= @category.count %> categories in the database.
-</p>
+<div class="alert alert-primary">
+  There are <a href="./admin/products" class="alert-link"><%= @products.count %> products</a> in the database.
+</div>
+<div class="alert alert-primary">
+  There are <a href="./admin/categories" class="alert-link"><%= @category.count %> categories</a> in the database.
+</div>
