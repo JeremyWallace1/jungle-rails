@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   resources :products, only: [:index, :show]
   resources :categories, only: [:show]
   
-  resources :about, only: [:index]
+  # ----- Custom Routes for static pages ------
+  get '/about', to: 'pages#about'
 
   resource :cart, only: [:show] do
     post   :add_item
