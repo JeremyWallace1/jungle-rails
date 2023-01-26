@@ -4,21 +4,18 @@
     <h1>Admin &raquo; All Categories</h1>
   </header>
 
-  <div class="panel panel-default categories">
-
-    <table class="table table-bordered">
-      <thead>
+  <div class="panel panel-default categories w-50">
+    <table class="table table-bordered table-striped table-success">
+      <thead class="table-dark">
         <tr>
           <th>Category</th>
-          <th>Number of Products</th>
-          <th></th>
+          <th class="text-end">Number of Products</th>
         </tr>
       </thead>
       <tbody>
         <%= render @categories %>
       </tbody>
     </table>
-
   </div>
 
 </section>
