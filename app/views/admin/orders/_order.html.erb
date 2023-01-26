@@ -1,0 +1,8 @@
+<tr>
+  <td>
+    <h5><%= order.id %></h5>
+  </td>
+  <td class="text-end">
+    <%= humanized_money_with_symbol order.total_cents.to_f / 100.0 %>
+  </td>
+</tr>

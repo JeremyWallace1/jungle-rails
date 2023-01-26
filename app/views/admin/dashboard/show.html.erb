@@ -4,9 +4,12 @@
     <h1>Admin &raquo; Dashboard</h1>
   </header>
   <div class="alert alert-success">
+    There are <a href="./admin/categories" class="alert-link"><%= @category.count %> categories</a> in the database.
+  </div>
+  <div class="alert alert-success">
     There are <a href="./admin/products" class="alert-link"><%= @products.count %> products</a> in the database.
   </div>
   <div class="alert alert-success">
-    There are <a href="./admin/categories" class="alert-link"><%= @category.count %> categories</a> in the database.
+    There are <a href="./admin/orders" class="alert-link"><%= @orders.count %> orders</a> in the database.
   </div>
 </section>
