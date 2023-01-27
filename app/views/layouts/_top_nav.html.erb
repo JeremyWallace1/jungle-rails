@@ -49,13 +49,13 @@
         <% if current_user %>
           <%= puts current_user.inspect %>
           <ul class="navbar-nav">
-            <li class="nav-item">
-              Signed in as <%= current_user.first_name %> <%= current_user.last_name %>&nbsp&nbsp
+            <li class="nav-link disabled">
+              Signed in as <%= current_user.first_name %> <%= current_user.last_name %>
             </li>
           </ul>
           <ul class="navbar-nav">
             <li class="nav-item">
-              <%= link_to 'Logout', '/logout' %>
+              <%= link_to 'Logout', '/logout', class: "nav-link" %>
             </li>
           </ul>
         <% else %>
