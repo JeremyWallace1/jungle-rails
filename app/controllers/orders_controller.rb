@@ -2,7 +2,9 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
+    @current_sale ||= Sale.active[0]
   end
+  helper_method :current_sale
 
   def create
     charge = perform_stripe_charge
@@ -27,18 +29,28 @@ class OrdersController < ApplicationController
   end
 
   def perform_stripe_charge
+    if current_sale
+      charge_amount = (cart_subtotal_cents * (1 - (current_sale.percent_off.to_f / 100.0))).to_i
+    else
+      charge_amount = cart_subtotal_cents
+    end
     Stripe::Charge.create(
       source:      params[:stripeToken],
-      amount:      cart_subtotal_cents,
+      amount:      charge_amount,
       description: "Khurram Virani's Jungle Order",
       currency:    'cad'
     )
   end
 
   def create_order(stripe_charge)
+    if current_sale
+      charge_amount = (cart_subtotal_cents * (1 - (current_sale.percent_off.to_f / 100.0))).to_i
+    else
+      charge_amount = cart_subtotal_cents
+    end
     order = Order.new(
       email: params[:stripeEmail],
-      total_cents: cart_subtotal_cents,
+      total_cents: charge_amount,
       stripe_charge_id: stripe_charge.id, # returned by stripe
     )
 

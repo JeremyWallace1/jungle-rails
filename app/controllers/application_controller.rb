@@ -35,6 +35,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user
 
+  def current_sale
+    @current_sale ||= Sale.active[0]
+  end
+  helper_method :current_sale
+
   def authorize
     redirect_to '/login' unless current_user
   end

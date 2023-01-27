@@ -27,12 +27,30 @@
           <th>Quantity</th>
           <th>Price</th>
         </tr>
-      </thead>
-      <tbody>
+
+        
+        </thead>
+        <tbody>
         <% puts @order.inspect %>
         <% @order.line_items.each do |item| %>
           <% # passes the product, quantity and total price from the order %>
           <%= render 'item', product: item.product, quantity: item[:quantity].to_i, price: item[:total_price_cents].to_f %>
+        <% end %>
+        <% if current_sale %>
+          <tr class="table table-success">
+            <th colspan="1">
+              SALE
+            </th>
+            <th colspan="1">
+              <%= current_sale.name %>
+            </th>
+            <th colspan="2">
+              <%= current_sale.percent_off %>% disc.
+            </th>
+            <th>
+              <%= number_to_currency((@order.total_cents.to_f / 100.0) * (current_sale.percent_off.to_f / 100.0).to_f, precision: 2) %>
+            </th>
+          </tr>
         <% end %>
       </tbody>
       <tfoot>
@@ -42,7 +60,7 @@
           </th>
           <th>
             <% # The final amount charged for the order %>
-            <%= humanized_money_with_symbol @order.total_cents.to_f / 100.0 %>
+            <%= number_to_currency((@order.total_cents.to_f / 100.0).to_f, precision: 2) %>
           </th>
         </tr>
       </tfoot>
