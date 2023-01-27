@@ -4,10 +4,11 @@
     <h1>Log in</h1>
   </header>
 
+  
   <div class="row">
     <div class="col-sm-6 col-sm-offset-1">
       <%= form_for :user, url: '/login' do %>
-
+      
         <div class="form-group">
           <%= label_tag :email %>
           <%= email_field_tag :email %>
