@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     resources :categories, only: [:index, :new, :create]
     resources :products, except: [:edit, :update, :show]
     resources :orders, only: [:index]
+    resources :sales, only: [:index, :new]
   end
 
   # These routes will be for signup. The first renders a form in the browser, the second will receive the form and create a user in our database using the data given to us by the user.
