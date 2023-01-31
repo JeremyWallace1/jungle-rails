@@ -7,7 +7,10 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 8 }
 
   def authenticate_with_credentials(email, password)
-    if self.email.downcase == email.downcase && self.authenticate(password)
+    # puts "Authenticate_with_credentials method"
+    # pp email
+    # pp password
+    if self.email.downcase == email.downcase.strip && self.authenticate(password)
       self
     else
       nil

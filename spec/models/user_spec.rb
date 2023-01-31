@@ -151,5 +151,14 @@ RSpec.describe User, type: :model do
     it 'fails authentication with email not found' do
       expect(user.authenticate_with_credentials('test1@test.com', 'bananahammock')).to be_nil
     end
+    it 'passes authentication with spaces before the email address' do
+      expect(user.authenticate_with_credentials('  test@test.com', 'bananahammock')).not_to be_nil
+    end
+    it 'passes authentication with spaces after the email address' do
+      expect(user.authenticate_with_credentials('test@test.com  ', 'bananahammock')).not_to be_nil
+    end
+    it 'passes authentication with wrong case for email address' do
+      expect(user.authenticate_with_credentials('TEST@tEsT.CoM', 'bananahammock')).not_to be_nil
+    end
   end
 end
