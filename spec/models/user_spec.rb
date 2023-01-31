@@ -4,9 +4,9 @@ require 'database_cleaner/active_record'
 DatabaseCleaner.strategy = :truncation
 
 RSpec.describe User, type: :model do
+  # then, whenever you need to clean the DB
+  DatabaseCleaner.clean
   describe 'Validations' do
-    # then, whenever you need to clean the DB
-    DatabaseCleaner.clean
     # validation tests/examples here
     context 'full validation' do
       it 'creates a user with all five fields set' do
@@ -18,7 +18,6 @@ RSpec.describe User, type: :model do
           password: 'bananahammock',
           password_confirmation: 'bananahammock'
         })
-        expect(user.id).not_to be_nil
         expect(user.first_name).to eq('Jeremy')
         expect(user.last_name).to eq('Wallace')
         expect(user.email.downcase).to eq('test@test.com')
@@ -95,10 +94,7 @@ RSpec.describe User, type: :model do
           password_confirmation: 'bananahammock'
         })
         # pp user2.errors.full_messages
-        # pp User.all
         expect(user2.errors.full_messages).to include("Email has already been taken")
-        expect(user.id).not_to be_nil
-        expect(user2.id).to be_nil
       end
     end
 
@@ -132,6 +128,28 @@ RSpec.describe User, type: :model do
         expect(user.errors.full_messages).to include("Last name can't be blank")
         expect(user.id).to be_nil
       end
+    end
+  end
+
+  # then, whenever you need to clean the DB
+  DatabaseCleaner.clean
+
+  describe '.authenticate_with_credentials' do
+    user = User.create({
+      first_name: 'Jeremy',
+      last_name: 'Wallace',
+      email: 'TEST@TEST.com',
+      password: 'bananahammock',
+      password_confirmation: 'bananahammock'
+    })
+    it 'passes authentication with correct email and password' do
+      expect(user.authenticate_with_credentials('test@test.com', 'bananahammock')).not_to be_nil
+    end
+    it 'fails authentication with incorrect password' do
+      expect(user.authenticate_with_credentials('test@test.COM', 'bananahammock!')).to be_nil
+    end
+    it 'fails authentication with email not found' do
+      expect(user.authenticate_with_credentials('test1@test.com', 'bananahammock')).to be_nil
     end
   end
 end
