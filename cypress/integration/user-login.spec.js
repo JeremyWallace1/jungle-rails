@@ -39,8 +39,6 @@ describe('jungle-rails user_login', () => {
     cy.get('#user_password_confirmation').type('testing123!');
     cy.get('form').submit();
     cy.get('.nav-link').should('contain.text', 'Signed in as');
-    // cy.get('a[href="/logout"]').click();
-    // cy.get('a[href="/login"]').should("be.visible");
   });
   it('should be able to login with email and password credentials of existing user', () => {
     cy.get('a[href="/login"]').click();
@@ -49,5 +47,21 @@ describe('jungle-rails user_login', () => {
     cy.get('form').submit();
     cy.get('.nav-link').should('contain.text', 'Signed in as');
   });
-
+  it('should be able to logout when logged in', () => {
+    cy.get('a[href="/login"]').click();
+    cy.get('#email').type(randomEmail);
+    cy.get('#password').type('testing123!');
+    cy.get('form').submit();
+    cy.get('.nav-link').should('contain.text', 'Signed in as');
+    cy.get('a[href="/logout"]').click();
+    cy.get('a[href="/login"]').should("be.visible");
+  });
+  it('should be able to login from any page', () => {
+    cy.visit('/products/1')
+    cy.get('a[href="/login"]').click();
+    cy.get('#email').type(randomEmail);
+    cy.get('#password').type('testing123!');
+    cy.get('form').submit();
+    cy.get('.nav-link').should('contain.text', 'Signed in as');
+  })
 });
