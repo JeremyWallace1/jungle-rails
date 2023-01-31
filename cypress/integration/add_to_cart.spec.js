@@ -6,8 +6,8 @@ describe('example to-do app', () => {
     // we include it in our beforeEach function so that it runs before each test
     cy.visit('/')
   });
-  it('should open the product page when product is clicked on from home page', () => {
-    cy.get(".products article").first().click();
-    cy.get(".product-detail").should("be.visible");
+  it('should display 1 in the cart when "add" button clicked for a product', () => {
+    cy.get(".btn").first().click({force: true});
+    cy.get(".nav-link").should('contain.text', "My Cart (1)");
   });
 });
